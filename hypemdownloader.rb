@@ -56,14 +56,14 @@ def get_pages(mechanize)
 	current_page = 2
 
 	mechanize.get("http://hypem.com/#{USERNAME}?ax=1") do |page|
-		page_objects = page.search(".paginator").children
+		page_objects = page.search(".paginator").children.to_a
 
 		page_objects.select! do |p|
 			p.name == 'a' && !p.children.first.text.include?("See more")
 		end
 
-		page_objects.times do |t|
-			pages << "/#{offset}"
+		page_objects.count.times do |t|
+			pages << "/#{current_page}"
 			current_page += 1
 		end
 	end
@@ -72,4 +72,6 @@ end
 pages.concat get_pages(mechanize)
 
 track_list = pages.map { |p| get_songs_for_page("http://hypem.com/#{USERNAME}#{p}?ax=1", mechanize) }
+
+track_list.flatten
 
