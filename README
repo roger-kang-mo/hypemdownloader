@@ -2,3 +2,6 @@ This is a quick/dirty script to download all of a user's favorites (assuming it'
 To run, just call the script and pass in the desired username.
 
 ex: ruby ./hypemdownloader "someone"
+
+
+The formatting is all off. please ignore
